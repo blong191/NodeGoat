@@ -107,7 +107,7 @@ function SessionHandler(db) {
             // Fix the problem by regenerating a session in each login
             // by wrapping the below code as a function callback for the method req.session.regenerate()
             // i.e:
-            // `req.session.regenerate(function() {})`
+            req.session.regenerate(function() {
             req.session.userId = user._id;
             if (user.isAdmin) {
               return res.redirect("/benefits");
@@ -115,6 +115,7 @@ function SessionHandler(db) {
               return res.redirect("/dashboard");
             }
         });
+      });
     };
 
     this.displayLogoutPage = function(req, res, next) {
